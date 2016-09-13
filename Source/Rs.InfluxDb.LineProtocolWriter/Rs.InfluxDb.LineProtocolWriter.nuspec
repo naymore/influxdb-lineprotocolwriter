@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>Rs.InfluxDb.LineProtocolWriter</id>
+    <version>1.0.0.0</version>
+    <title>InfluxDb LineProtocolWriter C#</title>
+    <authors>RS</authors>
+    <owners>RS</owners>
+    <licenseUrl>http://choosealicense.com/licenses/apache-2.0/</licenseUrl>
+    <projectUrl>https://github.com/naymore/influxdb-lineprotocolwriter</projectUrl>
+    <iconUrl>http://lkhill.com/wp/wp-content/uploads/2015/10/influxdb-logo.png</iconUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>InfluxDB Line Protocol writer written in C# with support for GZIP and batch/aggregation</description>
+    <releaseNotes>Initial release</releaseNotes>
+    <copyright>Copyright 2016</copyright>
+    <tags></tags>
+  </metadata>
+</package>
