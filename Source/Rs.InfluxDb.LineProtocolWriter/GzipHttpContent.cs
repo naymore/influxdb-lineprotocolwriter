@@ -16,7 +16,7 @@ namespace Rs.InfluxDb.LineProtocolWriter
         {
             if (content == null)
             {
-                throw new ArgumentNullException("content");
+                throw new ArgumentNullException(nameof(content));
             }
 
             _originalContent = content;

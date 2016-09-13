@@ -1,17 +1,33 @@
 ##C# InfluxDB line protocol writer.##
 
-Line Protocol: see https://docs.influxdata.com/influxdb/v1.0/concepts/glossary/#line-protocol  
-Originally based on https://github.com/influxdata/influxdb-csharp - unfortunately I couldn't make the .NET Core project work my ways.
+[Official InfluxDB Line Protocol documentation](https://docs.influxdata.com/influxdb/v1.0/write_protocols/line/)  
+This code is based on [influxdb-csharp](https://github.com/influxdata/influxdb-csharp)  
+*Unfortunately I couldn't make the .NET Core project work my ways*  
 
 ** FEATURES **
-- GZIP compression
-- Aggregation/Batching of requests (you can specify both a timespan or a number of "points" after which to write to the influx database
+- GZIP compression which significantly reduces the amout of data sent over the wire
+- Aggregation/Batching of write requests  
+  The batching/aggregating is triggered by whatever event occurs first.  
+  In the example below either after 15.000 LineProtocolPoints -or- after 3 seconds.
+
 
 **Usage example:**
 
-
 ```csharp
-var options = new LineProtocolClientOptions(); // ommitted
+var options = new LineProtocolClientOptions {
+    ServerBaseAddress = "http://localhost:8086";
+    DatabaseName = "testdb";
+    UserName = "root";
+    Password = "root";
+    UseGzipCompression = true;
+    RequestAggregationMaxCount = 15000; // maximum number of LineProtocolPoints in one batch
+    RequestAggregationMaxSeconds = 3; // maximum seconds after which a batch is written
+};
+
 BufferedLineProtocolClient lineProtocolClient = new BufferedLineProtocolClient(options);
-lineProtocolClient.Enqueue(point);
+
+// enqueue LineProtocolPoint
+lineProtocolClient.Enqueue(point1);
+lineProtocolClient.Enqueue(point2);
+lineProtocolClient.Enqueue(point3);
 ```

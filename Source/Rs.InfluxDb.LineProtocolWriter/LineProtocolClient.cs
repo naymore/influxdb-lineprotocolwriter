@@ -15,7 +15,7 @@ namespace Rs.InfluxDb.LineProtocolWriter
         private readonly string _requestUri;
         private readonly bool _useGzipCompression;
 
-        private bool disposedValue = false;
+        private bool _disposedValue;
 
         public LineProtocolClient(LineProtocolClientOptions lineProtocolClientOptions)
         {
@@ -84,7 +84,7 @@ namespace Rs.InfluxDb.LineProtocolWriter
 
         protected virtual void Dispose(bool disposing)
         {
-            if (!disposedValue)
+            if (!_disposedValue)
             {
                 if (disposing)
                 {
@@ -92,7 +92,7 @@ namespace Rs.InfluxDb.LineProtocolWriter
                     _httpClientHandler?.Dispose();
                 }
 
-                disposedValue = true;
+                _disposedValue = true;
             }
         }
 
