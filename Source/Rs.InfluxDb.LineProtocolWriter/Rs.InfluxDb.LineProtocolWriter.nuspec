@@ -8,7 +8,7 @@
     <owners>RS</owners>
     <licenseUrl>http://choosealicense.com/licenses/apache-2.0/</licenseUrl>
     <projectUrl>https://github.com/naymore/influxdb-lineprotocolwriter</projectUrl>
-    <iconUrl>https://raw.githubusercontent.com/influxdata/influxdb-csharp/master/asset/influxdata.jpg</iconUrl>
+    <iconUrl>https://github.com/naymore/influxdb-lineprotocolwriter/blob/master/Documentation/influxlpwlogo.png</iconUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>InfluxDB Line Protocol writer for .NET with support for gzip compression and batch/aggregation to minimize I/O operations on the database.</description>
     <releaseNotes>Initial release</releaseNotes>
