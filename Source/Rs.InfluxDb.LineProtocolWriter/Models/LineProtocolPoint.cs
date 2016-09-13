@@ -8,8 +8,8 @@ namespace Rs.InfluxDb.LineProtocolWriter.Models
     public class LineProtocolPoint
     {
         private readonly string _measurement;
-        private IReadOnlyDictionary<string, object> _fields;
-        private IReadOnlyDictionary<string, string> _tags;
+        private readonly IReadOnlyDictionary<string, object> _fields;
+        private readonly IReadOnlyDictionary<string, string> _tags;
         private DateTime? _utcTimestamp;
         
         public LineProtocolPoint(string measurement, IReadOnlyDictionary<string, object> fields, IReadOnlyDictionary<string, string> tags = null, DateTime? utcTimestamp = null)

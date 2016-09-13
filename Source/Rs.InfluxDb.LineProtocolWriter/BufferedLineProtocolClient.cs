@@ -13,7 +13,7 @@ namespace Rs.InfluxDb.LineProtocolWriter
         private readonly IDisposable _subscription;
         private readonly LineProtocolClient _lineProtocolClient;
 
-        private bool disposedValue = false;
+        private bool _disposedValue;
 
         public BufferedLineProtocolClient(LineProtocolClientOptions lineProtocolClientOptions)
         {
@@ -46,7 +46,7 @@ namespace Rs.InfluxDb.LineProtocolWriter
         
         protected virtual void Dispose(bool disposing)
         {
-            if (!disposedValue)
+            if (!_disposedValue)
             {
                 if (disposing)
                 {
@@ -54,7 +54,7 @@ namespace Rs.InfluxDb.LineProtocolWriter
                     _lineProtocolClient.Dispose();
                 }
                 
-                disposedValue = true;
+                _disposedValue = true;
             }
         }
 

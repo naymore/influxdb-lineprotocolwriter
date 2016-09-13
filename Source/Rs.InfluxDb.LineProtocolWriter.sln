@@ -6,8 +6,6 @@ MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rs.InfluxDb.LineProtocolWriter", "Rs.InfluxDb.LineProtocolWriter\Rs.InfluxDb.LineProtocolWriter.csproj", "{70363FEB-1137-4E4A-BC57-2598D6FA123C}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Documentation", "Documentation", "{BAB49717-95BF-42A6-99D0-54EB5C592A00}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{259D762A-6696-416F-97DA-CA2933D77674}"
 	ProjectSection(SolutionItems) = preProject
 		..\README.md = ..\README.md
 	EndProjectSection
