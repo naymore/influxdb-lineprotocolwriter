@@ -2,9 +2,8 @@
 
 [Official InfluxDB Line Protocol documentation](https://docs.influxdata.com/influxdb/v1.0/write_protocols/line/)  
 This code is based on [influxdb-csharp](https://github.com/influxdata/influxdb-csharp)  
-*Unfortunately I couldn't make the .NET Core project work my ways*  
 
-** FEATURES **
+**FEATURES**
 - GZIP compression which significantly reduces the amout of data sent over the wire
 - Aggregation/Batching of write requests  
   The batching/aggregating is triggered by whatever event occurs first.  
