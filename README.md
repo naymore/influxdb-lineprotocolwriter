@@ -13,20 +13,27 @@ This code is based on [influxdb-csharp](https://github.com/influxdata/influxdb-c
 **Usage example:**
 
 ```csharp
+// First of all create a parameters object for the low level InfluxDbLineProtocolClient.
 var options = new LineProtocolClientOptions {
     ServerBaseAddress = "http://localhost:8086";
     DatabaseName = "testdb";
     UserName = "root";
     Password = "root";
     UseGzipCompression = true;
-    RequestAggregationMaxCount = 15000; // maximum number of LineProtocolPoints in one batch
-    RequestAggregationMaxSeconds = 3; // maximum seconds after which a batch is written
 };
 
-BufferedLineProtocolClient lineProtocolClient = new BufferedLineProtocolClient(options);
+// Create a new LineProtocolClient
+var lineProtocolClient = new LineProtocolClient(options);
 
-// enqueue LineProtocolPoint
-lineProtocolClient.Enqueue(point1);
-lineProtocolClient.Enqueue(point2);
-lineProtocolClient.Enqueue(point3);
+// You can now use the lineProtocolClient to write data to InfluxDb.
+lineProtocolClien.WriteAsync(...);
+
+// If you want to write to InfluxDb in batches you can wrap the LineProtocolClient in a BufferedLineProtocolClient. 
+// In this example the buffer will grow to a maximum of 15.000 items -OR- gather items for a maximum time of 3 seconds - whichever threshold is reached first.
+BufferedLineProtocolClient bufferedLineProtocolClient = new BufferedLineProtocolClient(lineProtocolClient, maximumMeasurementPoints: 15000, maximumElapsedTime: TimeSpan.FromSeconds(2);
+
+// You can the enqueue new data
+bufferedLineProtocolClient.Enqueue(point1);
+bufferedLineProtocolClient.Enqueue(point2);
+bufferedLineProtocolClient.Enqueue(point3);
 ```
