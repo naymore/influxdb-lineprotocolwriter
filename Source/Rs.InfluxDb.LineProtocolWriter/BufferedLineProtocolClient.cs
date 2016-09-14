@@ -16,17 +16,15 @@ namespace Rs.InfluxDb.LineProtocolWriter
 
         private bool _disposedValue;
 
-        public BufferedLineProtocolClient(LineProtocolClientOptions lineProtocolClientOptions)
+        public BufferedLineProtocolClient(LineProtocolClient lineProtocolClient, int maximumMeasurementPoints, TimeSpan maximumElapsedTime)
         {
-            _lineProtocolClient = new LineProtocolClient(lineProtocolClientOptions);
+            _lineProtocolClient = lineProtocolClient;
 
             Subject<LineProtocolPoint> subject = new Subject<LineProtocolPoint>();
             _syncedSubject = Subject.Synchronize(subject);
 
-            TimeSpan requestAggegationTimer = TimeSpan.FromSeconds(lineProtocolClientOptions.RequestAggregationMaxSeconds);
-
             _subscription = _syncedSubject
-                .Buffer(requestAggegationTimer, lineProtocolClientOptions.RequestAggregationMaxCount)
+                .Buffer(maximumElapsedTime, maximumMeasurementPoints)
                 .Subscribe(onNext: async (pointsList) => await WriteToInflux(pointsList));
         }
 
