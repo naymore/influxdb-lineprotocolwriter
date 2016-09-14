@@ -51,6 +51,7 @@
     <Compile Include="BufferedLineProtocolClient.cs" />
     <Compile Include="GzipHttpContent.cs" />
     <Compile Include="LineProtocolClient.cs" />
+    <Compile Include="Exceptions\LineProtocolException.cs" />
     <Compile Include="LineProtocolSyntax.cs" />
     <Compile Include="Models\LineProtocolClientOptions.cs" />
     <Compile Include="Models\LineProtocolPayload.cs" />

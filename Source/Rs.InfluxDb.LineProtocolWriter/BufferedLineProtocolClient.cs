@@ -4,6 +4,7 @@ using System.Reactive.Subjects;
 using System.Reactive.Linq;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Rs.InfluxDb.LineProtocolWriter.Exceptions;
 
 namespace Rs.InfluxDb.LineProtocolWriter
 {
@@ -29,12 +30,20 @@ namespace Rs.InfluxDb.LineProtocolWriter
                 .Subscribe(onNext: async (pointsList) => await WriteToInflux(pointsList));
         }
 
-        private Task<LineProtocolWriteResult> WriteToInflux(IList<LineProtocolPoint> pointsList)
+        private async Task WriteToInflux(IList<LineProtocolPoint> pointsList)
         {
+            if (pointsList == null || pointsList.Count == 0)
+                return;
+
             LineProtocolPayload payload = new LineProtocolPayload();
             payload.AddRange(pointsList);
 
-            return _lineProtocolClient.WriteAsync(payload);
+            var result = await _lineProtocolClient.WriteAsync(payload);
+
+            if (!result.Success)
+            {
+                throw new LineProtocolException(result.ErrorMessage);
+            }
         }
 
         public void Enqueue(LineProtocolPoint point)
