@@ -6,7 +6,7 @@ namespace Rs.InfluxDb.LineProtocolWriter
 {
     internal class LineProtocolSyntax
     {
-        private static readonly DateTime _unixTimeStamp = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
+        private static readonly DateTime _unixOriginTimeStamp = new DateTime(1970, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc);
 
         private static readonly Dictionary<Type, Func<object, string>> _registeredFormatters = new Dictionary<Type, Func<object, string>>
         {
@@ -74,8 +74,13 @@ namespace Rs.InfluxDb.LineProtocolWriter
 
         public static string FormatTimestamp(DateTime utcTimestamp)
         {
-            var t = utcTimestamp - _unixTimeStamp;
-            return ((long)(t.TotalMilliseconds * 1000000L)).ToString(CultureInfo.InvariantCulture);
+            var t = utcTimestamp - _unixOriginTimeStamp;
+            string milliSeconds = ((long)(t.TotalMilliseconds * 1000000L)).ToString(CultureInfo.InvariantCulture);
+
+            // Applying this commit failed: https://github.com/influxdata/influxdb-csharp/commit/e8618467877fbcb6019162c73ccdb01e9b5cfb48
+            //var test2 = (t.Ticks * 100L).ToString(CultureInfo.InvariantCulture);
+
+            return milliSeconds;
         }
     }
 }

@@ -31,16 +31,23 @@ namespace Rs.InfluxDb.LineProtocolWriter
         // TODO: add retry logic?
         public async Task<LineProtocolWriteResult> WriteAsync(LineProtocolPayload lineProtocolPayload, CancellationToken cancellationToken = default(CancellationToken))
         {
+            if (lineProtocolPayload == null || lineProtocolPayload.Count == 0)
+                return new LineProtocolWriteResult(true, "0", "No input.");
+
             HttpResponseMessage response;
             using (HttpContent content = CreateHttpContent(lineProtocolPayload))
             {
                 response = await PostToLineProtocolEndpoint(_requestUri, content, cancellationToken);
             }
 
-            if (response.IsSuccessStatusCode)
-                return new LineProtocolWriteResult(true);
+            string httpStatusCode = ((int)response.StatusCode).ToString();
 
-            return new LineProtocolWriteResult(false, $"{response.StatusCode} {response.ReasonPhrase}");
+            if (response.IsSuccessStatusCode)
+                return new LineProtocolWriteResult(true, httpStatusCode);
+
+            string errorMessage = await response.Content.ReadAsStringAsync();
+
+            return new LineProtocolWriteResult(false, httpStatusCode, errorMessage);
         }
 
         protected virtual HttpContent CreateHttpContent(LineProtocolPayload lineProtocolPayload)

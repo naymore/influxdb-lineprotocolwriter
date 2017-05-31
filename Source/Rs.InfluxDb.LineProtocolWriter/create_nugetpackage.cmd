@@ -1,1 +1,1 @@
-D:\tools\nuget.exe pack Rs.InfluxDb.LineProtocolWriter.csproj -Prop Configuration=Release
+D:\tools\nuget\nuget.exe pack Rs.InfluxDb.LineProtocolWriter.csproj -Prop Configuration=Release

@@ -13,6 +13,8 @@ namespace Rs.InfluxDb.LineProtocolWriter.Models
             // NOP
         }
 
+        public int Count => _points.Count;
+
         public void Add(LineProtocolPoint point)
         {
             if (point == null)
@@ -36,7 +38,7 @@ namespace Rs.InfluxDb.LineProtocolWriter.Models
             foreach (LineProtocolPoint point in _points)
             {
                 point.Render(textWriter);
-                textWriter.Write('\n');
+                textWriter.Write("\n");
             }
         }
     }

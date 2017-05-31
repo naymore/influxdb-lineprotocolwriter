@@ -26,7 +26,7 @@ var options = new LineProtocolClientOptions {
 var lineProtocolClient = new LineProtocolClient(options);
 
 // You can now use the lineProtocolClient to write data to InfluxDb.
-lineProtocolClien.WriteAsync(...);
+lineProtocolClient.WriteAsync(...);
 
 // If you want to write to InfluxDb in batches you can wrap the LineProtocolClient in a BufferedLineProtocolClient. 
 // In this example the buffer will grow to a maximum of 15.000 items -OR- gather items for a maximum time of 3 seconds - whichever threshold is reached first.
