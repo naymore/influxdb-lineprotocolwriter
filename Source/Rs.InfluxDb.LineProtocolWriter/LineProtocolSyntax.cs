@@ -74,11 +74,9 @@ namespace Rs.InfluxDb.LineProtocolWriter
 
         public static string FormatTimestamp(DateTime utcTimestamp)
         {
-            var t = utcTimestamp - _unixOriginTimeStamp;
-            string milliSeconds = ((long)(t.TotalMilliseconds * 1000000L)).ToString(CultureInfo.InvariantCulture);
-
-            // Applying this commit failed: https://github.com/influxdata/influxdb-csharp/commit/e8618467877fbcb6019162c73ccdb01e9b5cfb48
-            //var test2 = (t.Ticks * 100L).ToString(CultureInfo.InvariantCulture);
+            TimeSpan t = utcTimestamp - _unixOriginTimeStamp;
+            //string milliSeconds = ((long)(t.TotalMilliseconds * 1000000L)).ToString(CultureInfo.InvariantCulture);
+            string milliSeconds = (t.Ticks * 100L).ToString(CultureInfo.InvariantCulture);
 
             return milliSeconds;
         }
